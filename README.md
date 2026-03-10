@@ -138,6 +138,12 @@ python benchmark_tensorrt.py
 
 # 7. Visual demo
 python visualize.py
+
+# 8. Run inference on a video
+# Edit INPUT_VIDEO on line 11 of inference_video.py to point to your own video file
+# Supports .mp4, .webm, .avi, .mov — any file OpenCV can read
+python inference_video.py
+# Output saved as: segmentation_output_final.mp4
 ```
 
 ---
