@@ -1,0 +1,22 @@
+# TensorRT engines (machine-specific, must be rebuilt)
+*.engine
+
+# Model weights & ONNX files (too large / downloadable)
+*.pt
+*.onnx
+*.onnx.data
+segformer_model/
+
+# Large raw videos
+driving.mp4
+nightdriving.webm
+testvid.webm
+
+# Generated outputs
+output.mp4
+
+# Misc
+os
+__pycache__/
+*.pyc
+.env
