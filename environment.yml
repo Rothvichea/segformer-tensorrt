@@ -1,0 +1,23 @@
+name: segformer-trt
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pytorch
+  - torchvision
+  - pytorch-cuda=11.8   # change to 12.1 if using CUDA 12
+  - numpy
+  - matplotlib
+  - pip
+  - pip:
+    - transformers>=4.35
+    - ultralytics           # YOLOv8
+    - opencv-python
+    - Pillow
+    - onnx
+    - onnxruntime-gpu       # GPU ONNX runtime
+    - tensorrt              # NVIDIA TensorRT (requires CUDA toolkit installed)

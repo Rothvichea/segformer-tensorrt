@@ -93,10 +93,16 @@ Classes detected: road, sidewalk, building, person, car, vegetation, sky, traffi
 ### Requirements
 
 ```bash
-conda create -n perception python=3.10 -y
-conda activate perception
+# Option A — conda environment file (recommended)
+conda env create -f environment.yml
+conda activate segformer-trt
+
+# Option B — manual setup
+conda create -n segformer-trt python=3.10 -y
+conda activate segformer-trt
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
-pip install transformers onnx onnxruntime-gpu tensorrt pycuda
+pip install transformers ultralytics opencv-python Pillow matplotlib
+pip install onnx onnxruntime-gpu tensorrt pycuda
 pip install nvidia-cublas-cu12 nvidia-cudnn-cu12 nvidia-cufft-cu12
 ```
 
@@ -140,19 +146,24 @@ python visualize.py
 
 ```
 segformer-tensorrt/
-├── download_model.py          # Download SegFormer-b0 from HuggingFace
-├── benchmark_pytorch.py       # PyTorch FP32 + FP16 baseline
-├── export_onnx.py             # ONNX export pipeline
-├── benchmark_onnx.py          # ONNX Runtime GPU benchmark
-├── build_tensorrt.py          # TensorRT FP16 engine builder
-├── benchmark_tensorrt.py      # TensorRT benchmark + comparison
-├── visualize.py               # Visual segmentation demo
-├── results.json               # All benchmark results
-├── segformer_model/           # Downloaded model weights
-├── segformer.onnx             # Exported ONNX model
-├── segformer_fp16.engine      # TensorRT FP16 engine
-├── segformer_fp32.engine      # TensorRT FP32 engine
-└── segmentation_result.png    # Visual output
+├── environment.yml                  # Conda environment (recommended)
+├── download_model.py                # Download SegFormer-b0 from HuggingFace
+├── benchmark_pytorch.py             # PyTorch FP32 + FP16 baseline
+├── export_onnx.py                   # ONNX export pipeline
+├── benchmark_onnx.py                # ONNX Runtime GPU benchmark
+├── build_tensorrt.py                # TensorRT engine builder
+├── benchmark_tensorrt.py            # TensorRT benchmark + comparison
+├── inference_video.py               # Video inference
+├── inference_realtime.py            # Real-time webcam inference
+├── inference_realtime_fusion.py     # SegFormer + YOLOv8 fusion
+├── visualize.py                     # Visual segmentation demo
+├── generate_report.py               # Generate benchmark report
+├── results.json                     # All benchmark results
+├── plot_*.png                       # Benchmark charts
+├── segmentation_result.png          # Visual output sample
+└── sample.png                       # Input sample image
+    # Note: model files (.onnx, .engine, segformer_model/) are excluded
+    # Run download_model.py → export_onnx.py → build_tensorrt.py to regenerate
 ```
 
 ---
